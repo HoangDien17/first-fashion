@@ -1,0 +1,119 @@
+{{!-- <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="far fa-comment-dots"></i></button>
+
+<div class="chat-content">
+    <ul id="messages" style="min-height: 200px; max-height: 350px"></ul>
+    <span id="notifyUser"></span>
+    <form onsubmit="return submitfunction();" >
+        <input type="hidden" id="user" value="" />
+        <label for="message-text" class="col-form-label">Tin nhắn:</label>
+        <input type="hidden" id="user" value="" />
+        <input class="form-control" id="m" type="text" autocomplete="off" onkeyup="notifyTyping();" placeholder="Type yor message here.." />
+        <button type="submit" class="btn btn-secondary" style="margin-top: 10px;">Gửi</button>
+    </form>
+</div> --}}
+
+<!-- Button trigger modal -->
+
+{{!-- <button class="btn btn-dark" style="float: right" id="button-chat">
+  <i class="fas fa-sms" style="font-size: 30px;"></i>
+</button>
+<!-- Modal --> --}}
+
+<div class="live-chat" id="live-chat" style="display: none;background: white;">
+  <div class="top-chat">
+    First fashion
+  </div>
+  <div class="chat-content" id="chat-content">
+    <div class="chat"><ul id="messages"></ul></div>
+    <div class="notify" style="position:fixed; bottom: 65px; width:100%; padding-left:5px" ><p class="notifyUser" id="notifyUser"></p></div>
+    <div class="type-chat">
+      <form onsubmit="return submitfunction();" class="form-chat" >
+          <input class="form-control-type" id="m" type="text" autocomplete="off" onkeyup="notifyTyping();" placeholder="Hãy nhập gì đó để chat..." />
+          <button class="btn-chat"><i class="far fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+  <div class="login-user" id="login-user">
+    <div class="form">
+        <p class="title-guest" style="font-size: 15px; padding:5px">Bạn hãy nhập họ tên:</p>
+        <div class="login-item">
+          <input class="nameGuest" type="text" maxlength="10" id="nameGuest" style="text-align:center; font-size:14px" placeholder="Nhập tên của bạn">
+          <button type="button" class="btn btn-dark setUpChat" id="setUpChat">Bắt đầu chat</button>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="button-toggle-chat">
+  <button class="tab-chat">
+    <i class="far fa-comments"></i> First fashion
+  </button>
+</div>
+
+<script src="https://cdn.socket.io/3.1.1/socket.io.min.js" integrity="sha384-gDaozqUvc4HTgo8iZjwth73C6dDDeOJsAgpxBcMpZYztUfjHXpzrpdrHRdVp8ySO" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+  /*$( ".tab-chat" ).click(function() {     
+    $('.chat-content').slideToggle();
+    }); */
+
+  $(function(){
+    var nameGuest;
+    $('.tab-chat').click(function () {
+      if ($('.live-chat').is(":hidden")) {
+          $('.live-chat').slideDown("slow");
+      } else {
+          $('.live-chat').slideUp("slow");
+      }
+    });
+
+      $('#setUpChat').click(function(){
+        nameGuest = $('#nameGuest').val();
+        console.log(nameGuest) 
+        if(nameGuest){
+          $('#login-user').fadeOut()
+          $('#chat-content').show()
+        }else{
+          return false;
+        }
+
+      socket.emit('chatMessage', 'Thông báo', '<b>' + nameGuest + '</b> đã kết nối !');
+      })
+      //var nameGuest = $('#nameGuest').val();
+  });
+
+    var socket = io.connect('http://localhost:3000');
+    function submitfunction(){
+      var from = $('#nameGuest').val();
+      var message = $('#m').val();
+      if(message != '') {
+      socket.emit('chatMessage', from, message);
+    }
+    $('#m').val('').focus();
+      return false;
+    }
+
+    function notifyTyping() {
+      var user = $('#nameGuest').val();
+      socket.emit('notifyUser', user);
+    }
+
+    socket.on('chatMessage', function(from, msg){
+      var me = $('#nameGuest').val();
+      var display = (from == me)? 'right' : 'left'
+      var color = (from == me) ? 'green' : '#009afd';
+      var from = (from == me) ? 'Me' : from;
+      var p = $('<p class="sent">').append('<li style="float:' + display + '"><b style="color:' + color + '">' + from + '</b>: ' + msg + '</li>')
+      $('#messages').append(p);
+    });
+
+    socket.on('notifyUser', function(user){
+      var me = $('#nameGuest').val();
+      if(user != me) {
+        $('#notifyUser').text(user + ' đang nhập ...');
+      }
+      setTimeout(function(){ $('#notifyUser').text(''); }, 5000);
+    });
+
+</script>
+
+

@@ -1,0 +1,28 @@
+
+{{>sale}}
+<div class="container">
+  <h2>BỘ SƯU TẬP</h2>
+  <div class="mt-4">
+    {{#if products}}
+    <div class="row">
+      {{#each products}}
+      <div class="col-sm-6 col-lg-3" style="margin-bottom: 10px ;">
+        <div class="card card-product">
+          <a href="/detail/{{this._id}}"><img src="{{this.image}}" class="card-img-top" alt="{{this.name}}"></a>
+          <div class="card-body">
+            <h5 class="card-title">{{this.name}}</h5>
+            <p class="card-text price-product">{{#numberFormat this.price}} {{/numberFormat}} vnd</p>
+            {{!-- <div class="button" style="display: flex;"> --}}
+              {{!-- <a href="/detail/{{this._id}}" class="btn btn-primary">Thêm giỏ hàng</a> --}}
+              <a href="/detail/{{this._id}}" class="btn btn-primary">Mua ngay</a>
+            {{!-- </div> --}}
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <h3 style="color: red; text-align: center">Không có sản phẩm nào!</h3>
+    {{/if}}
+  </div>
+</div>

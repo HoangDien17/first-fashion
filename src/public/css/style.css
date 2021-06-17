@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.header-showroom{
+    background: black;
+    width: 100%;
+    height: 40px;
+}
+.navbar{
+    width: 100%;
+    height: 120px;
+    background: white;
+    padding: 0;
+}
+.nav-search{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: auto;
+    width: 30%;
+    position: relative;
+}
+.input-search{
+    border-radius: 20px;
+    border: rgb(153, 150, 150) solid 1px;   
+    width: 70%;
+    height: 35px;
+    outline: none;
+    padding-left: 12px;
+    position: absolute;
+    left: 25%;
+    
+}
+.icon-search{
+    position:absolute;
+    right: 40px;
+    top: 10px;
+    color: black;
+    cursor: pointer;
+}
+.icon-search:hover{
+    opacity: 0.5;
+}
+.nav1{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    padding: 0;
+    margin: -15px 20px 0px 20px;
+}
+
+img.logo-icon{
+    width: 35%;
+    height: 70px;
+    display: block;
+    margin: auto;
+}
+
+.nav-logo{
+    margin: auto;
+    width: 40%;
+}
+.nav-cart{
+    width: 30%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-cart a{
+    color: black;
+    text-decoration: none;
+}
+.nav-cart i{
+    margin-right: 5px;
+}
+.cart{
+    margin-right: 20px;
+}
+.nav-cart a:hover {
+    color: red;
+}
+.inline-list{
+    display: flex;
+}
+.nav2{
+    width: 40%;
+    height: 60px;
+    margin: auto;
+}
+ul {
+    list-style: none;
+}
+.menu-link{
+    text-decoration: none;
+    color: black;
+}
+.menu-item{
+    text-align: center;
+    font-size: 14px;
+    margin: auto;
+}
+.card-product{
+    text-align: center;
+}
+.price-product{
+    color: red;
+    font-weight: bold;
+}
+h2{
+    text-align: center;
+    padding: 20px;
+}
+#navbarDropdown{
+    cursor: pointer;
+    white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    font-size:14px
+}
+#navbarDropdown:hover{
+    /* overflow: visible; */
+    color: red;
+}
+
